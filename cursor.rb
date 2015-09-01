@@ -18,8 +18,7 @@ class Cursor
     elsif input == " "
       select
     else
-      raise "Invalid input, please use W, A, S and D to navigate board.
-      SPACE to select a position"
+      raise "Cursor got a invalid input"
     end
   end
 
