@@ -25,8 +25,31 @@ class Game
     @error_messages = []
   end
 
-  def play
+  def game_type
     puts "Welcome to Chess"
+    puts "What type of game do you want to play?"
+    puts "Enter 1 for Player vs. Player"
+    puts "Enter 2 for Player vs. CPU"
+    puts "Enter 3 for CPU vs. CPU"
+    answer = gets.chomp.to_i
+    if [1, 2, 3].include?(answer)
+      if answer == 1
+        @player1 = HumanPlayer.new
+        @player2 = HumanPlayer.new
+      elsif answer == 2
+        @player1 = HumanPlayer.new
+        @player2 = ComputerPlayer.new
+      else
+        @player1 = ComputerPlayer.new
+        @player2 = ComputerPlayer.new
+      end
+    else
+      puts "Invalid Input"
+      game_type
+    end
+  end
+
+  def play
     until board.checkmate?(turn) do
       while board.frozen_cursor.nil? || board.attacked_pos.nil? do
         move_selection
@@ -41,7 +64,7 @@ class Game
         board.make_move
         switch_turn
       end
-      
+
     end
     display_winner(turn)
   end
