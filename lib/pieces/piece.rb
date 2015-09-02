@@ -1,3 +1,6 @@
+require_relative 'sliding_piece'
+require_relative 'stepping_piece'
+
 class Piece
   attr_accessor :pos, :color, :possible_moves, :board
 

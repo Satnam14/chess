@@ -1,6 +1,5 @@
 require 'colorize'
-require 'byebug'
-require_relative 'empty_square'
+require_relative 'pieces'
 require_relative 'cursor'
 
 class Board
@@ -159,9 +158,9 @@ class Board
   def display_square(pos)
     row_idx, col_idx = pos
     if (row_idx + col_idx).even?
-      background = :yellow
+      background = :light_black
     else
-      background = :blue
+      background = :light_green
     end
     print self[pos].to_s.colorize(background: background)
   end

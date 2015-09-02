@@ -1,18 +1,7 @@
-require_relative 'board'
 require 'io/console'
-require 'byebug'
 require 'colorize'
-require_relative 'cursor'
-require_relative 'piece'
-require_relative 'sliding_piece'
-require_relative 'stepping_piece'
-require_relative 'bishop'
-require_relative 'knight'
-require_relative 'king'
-require_relative 'queen'
-require_relative 'pawn'
-require_relative 'rook'
-require_relative 'human_player'
+require_relative 'lib/board'
+require_relative 'lib/cursor'
 
 class Game
 

@@ -1,3 +1,5 @@
+require_relative 'sliding_piece'
+
 class Bishop < Piece
   include Slideable
 
