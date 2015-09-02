@@ -27,21 +27,28 @@ class Game
 
   def play
     puts "Welcome to Chess"
-    until board.checkmate? do
+    until board.checkmate?(turn) do
       while board.frozen_cursor.nil? || board.attacked_pos.nil? do
         move_selection
       end
-      # validate_move(restrict a player to move the other players piece)
-      # if board.frozen_cursor
-      # moves_into_check?
-      board.make_move
-      # if board.moves_to_check?
-      #   raise "this leaves you in check, please play another move"
-      # else
-      #   board.make_move
-      # end
-      switch_turn
+
+      if board.moves_into_check?(turn)
+        error_messages << "This leaves you in check, please make another move"
+        board.frozen_cursor = nil
+        board.attacked_pos = nil
+        next
+      else
+        board.make_move
+        switch_turn
+      end
+      
     end
+    display_winner(turn)
+  end
+
+  def display_winner(turn)
+    puts "Game Over"
+    turn == :w ? "White Wins" : "Black Wins"
   end
 
   def display_error_messages
@@ -51,11 +58,19 @@ class Game
     @error_messages = []
   end
 
-  def move_selection
-    display_error_messages
+  def display_dev_info
     puts "Cursor position is cursor class: #{@cursor.pos}"
     puts "Frozen cursor = #{board.frozen_cursor}"
     puts "Attacked pos = #{board.attacked_pos}"
+    if board.frozen_cursor
+      p "Possible moves of frozen piece: #{board[board.frozen_cursor].moves}"
+    end
+    p "Possible moves of this position: #{board[@cursor.pos].moves}"
+  end
+
+  def move_selection
+    # display_dev_info
+    display_error_messages
     board.render(turn)
     puts "It's #{@turn == :w ? "White's" : "Black's"} turn" #change to names later
     input = $stdin.getch
@@ -89,9 +104,12 @@ class Game
       # if user selects anything else instead of selecting one of his pieces
       error_messages << "Invalid move, please select one of your pieces"
       false
-    elsif board.frozen_cursor != nil && board[cursor.pos].color == turn
+    elsif board.frozen_cursor && board[cursor.pos].color == turn
       # if user tries to capture one of his own pieces
       error_messages << "Invalid move, please move into a place"
+      false
+    elsif board.frozen_cursor && !board[board.frozen_cursor].moves.include?(cursor.pos)
+      error_messages << "Selected piece cannot move into that position"
       false
     else
       true

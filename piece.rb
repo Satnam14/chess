@@ -16,7 +16,7 @@ class Piece
     true
   end
 
-  # def move_into_check?(pos)
+  # def moves_into_check?(pos)
   #   p "What the hell?"
   #   b = board.dup
   #   b.attacked_pos = pos

@@ -8,7 +8,7 @@ module Stepable #where to require/include
       candidate = [x + pos[0], y + pos[1]]
       if board.on_board?(candidate)
         if board.valid_attack?(pos, candidate) || !board.occupied?(candidate)
-          @possible_moves << candidate #unless self.move_into_check?(candidate)
+          @possible_moves << candidate #unless self.moves_into_check?(candidate)
         end
       end
     end

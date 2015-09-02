@@ -62,12 +62,12 @@ class Board
     occupied?(attack_pos) && self[attack_pos].color != self[current_pos].color
   end
 
-  def checkmate?
-    false
-  end
+  # def checkmate?
+  #   false
+  # end
 
   def dup #try with a flatten
-    dup = Board.new
+    dup = Board.new(cursor)
     dup.frozen_cursor = frozen_cursor
     dup.attacked_pos = attacked_pos
     (0..7).each do |row|
@@ -82,8 +82,21 @@ class Board
     dup
   end
 
+  def checkmate?(color)
+    return false unless in_check?(color)
+
+    grid.flatten.select { |p| p.color == color }.all? do |piece|
+      piece.moves.all? do |move|
+        duplicate_board = self.dup
+        duplicate_board.frozen_cursor = piece.pos
+        duplicate_board.attacked_pos = move
+        duplicate_board.make_move
+        duplicate_board.in_check?(color)
+      end
+    end
+  end
+
   def in_check?(color) # color under attack
-    p "I am here!"
     #king can be taken on next move
     attacking_color = color == :b ? :w : :b
     king = find_king(color)
@@ -98,14 +111,14 @@ class Board
     end
   end
 
-  def move_into_check?
+  def moves_into_check?(color)
     duplicate_board = self.dup
     duplicate_board.make_move
-    in_check?(duplicate_board[].color)
+    duplicate_board.in_check?(color)
   end
 
+
   def make_move
-    puts "A move was made"
     if self[frozen_cursor].moves.include?(attacked_pos)
       if self[attacked_pos].empty?
         self[attacked_pos] = self[frozen_cursor]
@@ -126,7 +139,6 @@ class Board
 
 
   def render(color)
-    puts "Cursor position: #{cursor.pos.join(", ")}"
     grid.each_with_index do |row, row_idx|
       row.each_with_index do |cell, col_idx|
         pos = [row_idx, col_idx]
