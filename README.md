@@ -10,13 +10,14 @@ How to download and run
 6. Run the game using the command "Ruby game.rb"
 
 How to Play
+
 1. Inside the game, you can move the cursor using the arrow keys
 2. Select the piece you want to move using the Enter key
 3. Select the place you want to move into using the Enter key
 4. [COLOR] squares indicate all the positions the selected piece can move into
 5. Instruction on how to play Chess - [wikipedia]
 
-To Do -
+To Do
 
 [x] Make a board class that has a grid to hold pieces
 [x] Make a cursor class that has methods for moving and selecting from positions
