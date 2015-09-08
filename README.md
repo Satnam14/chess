@@ -23,7 +23,7 @@ Each player begins the game with 16 pieces: one king, one queen, two rooks, two 
 1. Inside the game, you can move the cursor using the W, A, S and D keys
 2. Select the piece you want to move using the SPACE key
 3. Select the place you want to move into using the Enter key
-4. [COLOR] squares indicate all the positions the selected piece can move into
+4. Blue squares indicate all the positions the selected piece can move into
 5. Hold down CTRL+C to quit at any time
 5. Wikipedia - [Wikipedia](https://en.wikipedia.org/wiki/Chess#Rules)
 
