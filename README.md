@@ -2,6 +2,8 @@
 
 ## Introduction
 
+![Screenshot](http://res.cloudinary.com/satnam14/image/upload/c_scale,w_505/v1441732990/chess_n9ddmt.jpg)
+
 Each player begins the game with 16 pieces: one king, one queen, two rooks, two knights, two bishops, and eight pawns. Each of the six piece types moves differently. The most powerful piece is the queen and the least powerful piece is the pawn. The objective is to 'checkmate' the opponent's king by placing it under an inescapable threat of capture. To this end, a player's pieces are used to attack and capture the opponent's pieces, while supporting their own. In addition to checkmate, the game can be won by voluntary resignation by the opponent, which typically occurs when too much material is lost, or if checkmate appears unavoidable. A game may also result in a draw in several ways.
 
 ## How to download and run
@@ -9,8 +11,11 @@ Each player begins the game with 16 pieces: one king, one queen, two rooks, two 
 1. Install Ruby. If you already have installed Ruby then skip to step 2
 2. Download this repository (Click "Download as Zip button on the right")
 3. Extract the downloaded zip into the director of your choice
-4. Open a terminal (Mac and Linux) or a Command-prompt (Windows)
+4. Open a terminal
+  - If you're on Mac, press CMD + SPACE and type terminal
+  - If you're on Windows, press the Windows key and type cmd
 5. CD into the directory where you extracted the zip file
+  - See this if you're not sure [Terminal Basic](http://mac.appstorm.net/how-to/utilities-how-to/how-to-use-terminal-the-basics/)
 6. Run the game using the command "Ruby game.rb"
 
 ## How to Play

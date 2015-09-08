@@ -160,7 +160,7 @@ class Board
     if (row_idx + col_idx).even?
       background = :light_black
     else
-      background = :light_green
+      background = :light_yellow
     end
     print self[pos].to_s.colorize(background: background)
   end
