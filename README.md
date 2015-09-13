@@ -45,4 +45,4 @@ Each player begins the game with 16 pieces: one king, one queen, two rooks, two 
 - [ ] Allow user to re-select the piece he wants to move
 - [ ] Improve folder structure
 - [ ] Implement Human Player class
-- [ ] Implement Computer Player class
+- [ ] Implement Computer Player class that is powered by the minimax algorithm
