@@ -13,7 +13,7 @@
   - If you're on Mac, press CMD + SPACE and type terminal
   - If you're on Windows, press the Windows key and type cmd
 5. CD into the directory where you extracted the zip file
-  - See this if you're not sure what that means[Terminal Basic](http://mac.appstorm.net/how-to/utilities-how-to/how-to-use-terminal-the-basics/)
+  - See this if you're not sure what that means [Terminal Basic](http://mac.appstorm.net/how-to/utilities-how-to/how-to-use-terminal-the-basics/)
 6. Run the game using the command "ruby game.rb"
 
 ## How to Play
@@ -83,5 +83,6 @@ Each player begins the game with 16 pieces: one king, one queen, two rooks, two 
 - [ ] Refactor so that all lines are < 80 chars
 - [ ] Allow user to re-select the piece he wants to move
 - [x] Improve folder structure
-- [ ] Implement Human Player class
-- [ ] Implement Computer Player class that is powered by the minimax algorithm
+- [x] Implement Human Player class
+- [x] Implement Computer Player class that is powered by the minimax algorithm
+- [ ] Use alpha-beta prunning to eliminate bad moves from the Ozil tree
