@@ -17,8 +17,8 @@ class Game
     puts "Welcome to Chess"
     puts "What type of game do you want to play?"
     puts "Enter 1 for Player vs. Player"
-    puts "Enter 2 for Player vs. CPU"
-    puts "Enter 3 for CPU vs. CPU"
+    puts "Enter 2 for Player vs. CPU (beta)"
+    puts "Enter 3 for CPU vs. CPU (beta)"
     answer = gets.chomp.to_i
     if [1, 2, 3].include?(answer)
       if answer == 1

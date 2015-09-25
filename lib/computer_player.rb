@@ -13,7 +13,8 @@ class ComputerPlayer
 
   def select_move(turn)
     possible_moves = all_possible_moves(turn, board)
-    moves_tree = ozil(possible_moves, 3, turn)
+    moves_tree = ozil(possible_moves, 2, turn)
+    # visualize_tree(moves_tree)
     best_move = highest_score(moves_tree)
     board.frozen_cursor = best_move.from_pos
     board.attacked_pos = best_move.to_pos

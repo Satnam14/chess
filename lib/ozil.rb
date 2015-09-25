@@ -31,7 +31,7 @@ module Ozil
     Bishop => 3,
     Rook => 5,
     Queen => 9,
-    King => 1000
+    King => 10
   }
 
 
@@ -57,15 +57,49 @@ module Ozil
 
   def highest_score(moves)
     highest_score = 0
-    best_move = nil
+    best_moves = []
     moves.each do |move|
-      if move.score >= highest_score
-        best_move = move
-        highest_score = move.score
+      score = move.score + evaluate_move_score(move)
+      if score >= highest_score
+        highest_score = score
+      end
+    end
+    moves.each do |move|
+      if move.score = highest_score
+        best_moves << move
       end
     end
 
-    best_move
+    best_moves.sample
+  end
+
+  def find_extreme_change(array)
+    extreme_change = 0
+    array.each do |move|
+      extreme_change = move.score if move.score.abs >= extreme_change
+    end
+    extreme_change
+  end
+
+  def evaluate_move_score(move)
+    # byebug
+    return move.score if move.children_moves.nil?
+    extreme_change = find_extreme_change(move.children_moves)
+    highest_score = 0
+    move.children_moves.each do |move|
+      score = evaluate_move_score(move)
+      highest_score = score if score >= highest_score
+    end
+    extreme_change + move.score + highest_score
+  end
+
+  def visualize_tree(move)
+    puts "Move score: #{move.score}" if move.children_moves.nil?
+    score = find_extreme_change(move.children_moves)
+    puts "Extreme Score: #{score}"
+    move.children_moves.each do |move|
+      visualize_tree(move)
+    end
   end
 
   def weigh_move(move, player)
