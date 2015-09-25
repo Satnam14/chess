@@ -7,6 +7,8 @@
 ## How to download and run
 
 1. Install Ruby. If you already have installed Ruby then skip to step 2
+   - [Install Ruby on Mac or Linux](https://www.ruby-lang.org/en/documentation/installation/)
+   - [Install Ruby on Windows](http://rubyinstaller.org/)
 2. Download this repository (Click "Download as Zip button on the right")
 3. Extract the downloaded zip into the directory/folder of your choice
 4. Open a terminal
@@ -23,9 +25,9 @@
 3. Select the place you want to move into using the Enter key
 4. Blue squares indicate all the positions the selected piece can move into
 5. Hold down CTRL+C to quit at any time
-5. Wikipedia - [Wikipedia](https://en.wikipedia.org/wiki/Chess#Rules)
+6. Wikipedia - [Wikipedia](https://en.wikipedia.org/wiki/Chess#Rules)
 
-# Classes and Object-Oriented Design
+## Classes and Object-Oriented Design
 
 - Game
   - Starts the game with the desired set of players (E.g. Human vs. CPU, Human vs. Human)
