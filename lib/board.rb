@@ -6,9 +6,8 @@ class Board
 
   attr_accessor :cursor, :grid, :pos, :freeze, :frozen_cursor, :attacked_pos
 
-  def initialize(cursor)
+  def initialize
     @grid = Array.new(8) { Array.new(8) { EmptySquare.new } }
-    @cursor = cursor
     @freeze = false
     @frozen_cursor = nil
     @attacked_pos = nil
@@ -66,7 +65,7 @@ class Board
   # end
 
   def dup #try with a flatten
-    dup = Board.new(cursor)
+    dup = Board.new
     dup.frozen_cursor = frozen_cursor
     dup.attacked_pos = attacked_pos
     (0..7).each do |row|
@@ -137,7 +136,7 @@ class Board
   end
 
 
-  def render(color)
+  def render(color, cursor)
     grid.each_with_index do |row, row_idx|
       row.each_with_index do |cell, col_idx|
         pos = [row_idx, col_idx]

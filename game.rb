@@ -1,14 +1,16 @@
 require 'colorize'
 require_relative 'lib/board'
+require_relative 'lib/human_player'
+require_relative 'lib/computer_player'
 
 class Game
 
-  attr_accessor :board, :turn, :players, :cursor, :error_messages
+  attr_accessor :board, :turn, :player1, :player2
 
   def initialize
     @turn = :w
-    @cursor = Cursor.new
-    @board = Board.new(@cursor)
+    @board = Board.new
+    game_type
   end
 
   def game_type
@@ -24,37 +26,31 @@ class Game
         @player2 = HumanPlayer.new
       elsif answer == 2
         @player1 = HumanPlayer.new
-        @player2 = ComputerPlayer.new
+        @player2 = ComputerPlayer.new(:b)
       else
-        @player1 = ComputerPlayer.new
-        @player2 = ComputerPlayer.new
+        @player1 = ComputerPlayer.new(:w)
+        @player2 = ComputerPlayer.new(:b)
       end
     else
       puts "Invalid Input"
       game_type
     end
+    @player1.board = @board
+    @player2.board = @board
+    play
   end
 
   def get_player(turn)
-    player = turn == :b ? @player1 : @player2
+    player = turn == :w ? @player1 : @player2
     return player
   end
 
   def play
     until board.checkmate?(turn) do
       player = get_player(turn)
-      player.select_move(board)
-
-      if board.moves_into_check?(turn)
-        error_messages << "This leaves you in check, please make another move"
-        board.frozen_cursor = nil
-        board.attacked_pos = nil
-        next
-      else
-        board.make_move
-        switch_turn
-      end
-
+      player.select_move(turn)
+      board.make_move
+      switch_turn
     end
     display_winner(turn)
   end

@@ -1,29 +1,41 @@
-require_relative 'lib/cursor'
 require 'io/console'
+require_relative 'cursor'
+require_relative 'board'
 
 class HumanPlayer
-  attr_accessor :name
+  attr_accessor :name, :cursor, :error_messages, :board, :turn
 
-  def initialize(name)
-    @name = name
+  def initialize
+    # @name = name
+    @cursor = Cursor.new
     @error_messages = []
   end
 
-  def get_input
-    input = $stdin.getch
-  end
-
-  def select_move(board, turn)
+  def select_move(turn)
+    @turn = turn
     while board.frozen_cursor.nil? || board.attacked_pos.nil? do
-      move_selection(turn)
+      move_selection
     end
 
+    if board.moves_into_check?(turn)
+      error_messages << "This leaves you in check, please make another move"
+      board.frozen_cursor = nil
+      board.attacked_pos = nil
+      select_move(turn)
+    end
   end
 
-  def move_selection(turn)
+  def display_error_messages
+    error_messages.each do |message|
+      puts message
+    end
+    @error_messages = []
+  end
+
+  def move_selection
     # display_dev_info
     display_error_messages
-    board.render(turn)
+    board.render(turn, cursor)
     puts "It's #{turn == :w ? "White's" : "Black's"} turn"
     input = $stdin.getch
     handle_input(input)
@@ -73,12 +85,6 @@ class HumanPlayer
     false
   end
 
-  def display_error_messages
-    error_messages.each do |message|
-      puts message
-    end
-    @error_messages = []
-  end
 
   def display_dev_info
     puts "Cursor position is cursor class: #{@cursor.pos}"

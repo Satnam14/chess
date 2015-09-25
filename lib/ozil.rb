@@ -9,15 +9,17 @@
 #         3.2.1. Decrease score if user can capture Ozil's pieces.
 #         3.2.2. Recurse 1, exactly 5 times.
 # 4. Make the move with highest score.
+require 'byebug'
 
 class Move
-  attr_accessor :from_pos, :to_pos, :score, :board
+  attr_accessor :from_pos, :to_pos, :score, :board, :children_moves
 
-  def initialize(from, to)
+  def initialize(from, to, board)
     @from_pos = from
     @to_pos = to
     @score = 0
-    @board = nil
+    @board = board.dup
+    @children_moves = []
   end
 end
 
@@ -46,7 +48,7 @@ module Ozil
     possible_moves = [];
     all_pieces(player, board).each do |piece|
       piece.moves.each do |move|
-        possible_moves = Move.new(piece.pos, move)
+        possible_moves << Move.new(piece.pos, move, board)
       end
     end
 
@@ -57,7 +59,7 @@ module Ozil
     highest_score = 0
     best_move = nil
     moves.each do |move|
-      if move.score > highest_score
+      if move.score >= highest_score
         best_move = move
         highest_score = move.score
       end
@@ -66,8 +68,12 @@ module Ozil
     best_move
   end
 
-  def weigh_move(move)
-    move.score += CAPTURE_SCORES[move.board[move.to_pos].class]
+  def weigh_move(move, player)
+    if player == color
+      move.score += CAPTURE_SCORES[move.board[move.to_pos].class]
+    else
+      move.score -= CAPTURE_SCORES[move.board[move.to_pos].class]
+    end
     move.board.frozen_cursor = move.from_pos
     move.board.attacked_pos = move.to_pos
     move.board.make_move
@@ -85,9 +91,10 @@ module Ozil
   def ozil(moves, times, player)
     return if times == 0
     moves.each do |move|
-      move = weigh_move(move)
+      move = weigh_move(move, player)
+      # puts move.score if move.score != 0
       children_moves = all_possible_moves(other_player(player), move.board)
-      ozil(children_moves, times - 1, other_player(player))
+      move.children_moves = ozil(children_moves, times - 1, other_player(player))
     end
     moves
   end
