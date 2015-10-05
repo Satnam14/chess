@@ -95,9 +95,11 @@ module Ozil
 
   def visualize_tree(move)
     puts "Move score: #{move.score}" if move.children_moves.nil?
-    score = find_extreme_change(move.children_moves)
+    score = find_extreme_change(move)
     puts "Extreme Score: #{score}"
-    move.children_moves.each do |move|
+    queue = [move]
+    queue.each do |move|
+      queue << move
       visualize_tree(move)
     end
   end
