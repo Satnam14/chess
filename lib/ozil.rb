@@ -34,7 +34,6 @@ module Ozil
     King => 10
   }
 
-
   def all_pieces(player, board)
     pieces = []
     board.grid.flatten.each do |piece|
@@ -82,7 +81,6 @@ module Ozil
   end
 
   def evaluate_move_score(move)
-    # byebug
     return move.score if move.children_moves.nil?
     extreme_change = find_extreme_change(move.children_moves)
     highest_score = 0
@@ -128,10 +126,26 @@ module Ozil
     return if times == 0
     moves.each do |move|
       move = weigh_move(move, player)
+      next if move.score < 0
       # puts move.score if move.score != 0
       children_moves = all_possible_moves(other_player(player), move.board)
       move.children_moves = ozil(children_moves, times - 1, other_player(player))
     end
     moves
   end
+
+  def execution_times(a, b, c, d)
+    total = d - a
+    puts "Total time taken - #{total*1000}ms"
+    puts "Percentage time for constructing tree - #{((c - b)/total)*100}%"
+    puts "Percentage time for evaluating tree - #{((d - c)/total)*100}%"
+  end
+
+  # def ozil_iter(moves, player)
+  #   moves.each do |move|
+  #     move = weigh_move(move, player)
+  #     children_moves = all_possible_moves(other_player(player), move.board)
+  #   end
+  # end
+
 end
